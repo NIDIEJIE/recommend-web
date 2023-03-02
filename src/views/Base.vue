@@ -2,14 +2,10 @@
   <el-container style="min-height: 100vh">
     <!--边导航栏-->
     <el-aside :width="sideWidth + 'px'">
-      <el-menu :default-openeds="['1', '3']" style="min-height: 100vh; overflow-x: hidden;"
-               background-color="rgb(48, 65, 86)"
-               text-color="#fff"
-               :collapse-transition="false"
-               :collapse="isCollapse">
+      <el-menu :default-openeds="['1', '3']" style="min-height: 100vh; overflow-x: hidden" background-color="rgb(48, 65, 86)" text-color="#fff" :collapse-transition="false" :collapse="isCollapse">
         <div>
           <div style="height: 60px; line-height: 60px; text-align: center">
-            <img src="../assets/logo.png" alt="" style="width: 20px; position: relative; top: 5px;">
+            <img src="../assets/logo.png" alt="" style="width: 20px; position: relative; top: 5px" />
             <b style="color: white" v-show="logoTextShow">检修策略推荐系统</b>
           </div>
         </div>
@@ -26,12 +22,10 @@
           </template>
         </el-submenu>
         <el-submenu index="3">
-          <template slot="title"><i class="el-icon-setting"></i>
-            <span slot="title">历史数据</span></template>
+          <template slot="title"><i class="el-icon-setting"></i> <span slot="title">历史数据</span></template>
         </el-submenu>
         <el-submenu index="4">
-          <template slot="title"><i class="el-icon-delete"></i>
-            <span slot="title">退出登录</span></template>
+          <template slot="title"><i class="el-icon-delete"></i> <span slot="title">退出登录</span></template>
         </el-submenu>
       </el-menu>
     </el-aside>
@@ -54,22 +48,26 @@
       </el-header>
       <!--主体内容-->
       <el-main>
-
+        <RecommendBase></RecommendBase>
       </el-main>
     </el-container>
   </el-container>
 </template>
 
 <script>
+import RecommendBase from '@/views/RecommendBase'
 export default {
-  name: "RecommendHome",
+  name: 'Base',
+  components: {
+    RecommendBase
+  },
   data() {
     return {
-      username: "林孟杰",
+      username: '林孟杰',
       collapseBtnClass: 'el-icon-s-fold',
       isCollapse: false,
       sideWidth: 200,
-      logoTextShow:true
+      logoTextShow: true
     }
   },
   methods: {
@@ -90,6 +88,12 @@ export default {
 </script>
 
 <style scoped lang="less">
+// el-main 内置padding为20px
+.el-main {
+  // padding: 0px;
+  // margin: 20px;
+  // border: 1px solid #ccc;
+}
 .el-header {
   border-bottom: 1px solid #ccc;
   color: #333;
