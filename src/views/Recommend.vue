@@ -44,7 +44,7 @@
 <script>
 // import keyParam from "@/assets/data/keyParam";
 export default {
-  name: 'RecommendBase',
+  name: 'Recommend',
   data() {
     return {
       // 表单数据

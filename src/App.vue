@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import RecommendHome from "@/views/Base";
+import RecommendHome from "@/views/Manage";
 export default {
   name: "App",
   components: {
