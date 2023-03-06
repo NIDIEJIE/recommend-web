@@ -7,7 +7,8 @@ export default {
     return {
       isCollapse: false,
       logoTextShow: true,
-      sideWidth: 200
+      sideWidth: 200,
+      collapseBtnClass: 'el-icon-s-fold'
     }
   },
 
@@ -18,9 +19,11 @@ export default {
       if (state.isCollapse) {
         state.sideWidth = 64
         state.logoTextShow = false
+        state.collapseBtnClass = 'el-icon-s-unfold'
       } else {
         state.sideWidth = 200
         state.logoTextShow = true
+        state.collapseBtnClass = 'el-icon-s-fold'
       }
     }
   },
