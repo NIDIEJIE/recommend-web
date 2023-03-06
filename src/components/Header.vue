@@ -16,23 +16,25 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
-  name: "Header",
-  props: {
-    collapseBtnClass: String,
-    collapse: Function
-  },
+  name: 'Header',
+  props: {},
   data() {
     return {
-      username: "林孟杰"
+      username: '林孟杰',
+      isCollapse: false,
+      collapseBtnClass: 'el-icon-s-unfold'
     }
   },
   methods: {
-
+    collapse() {
+      this.setAside()
+    },
+    ...mapMutations('menu', ['setAside'])
   }
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,14 +1,12 @@
 <template>
   <el-container style="min-height: 100vh">
     <!--边导航栏-->
-    <el-aside :width="sideWidth + 'px'">
-      <Aside :isCollapse="isCollapse" :logoTextShow="logoTextShow"></Aside>
-    </el-aside>
+    <Aside></Aside>
     <!--右侧容器-->
     <el-container>
       <!-- 头部-->
       <el-header>
-        <Header :collapseBtnClass="collapseBtnClass" :collapse="collapse"></Header>
+        <Header></Header>
       </el-header>
       <!--主体内容-->
       <el-main>
@@ -19,8 +17,8 @@
 </template>
 
 <script>
-import Aside from "@/components/Aside";
-import Header from "@/components/Header";
+import Aside from '@/components/Aside'
+import Header from '@/components/Header'
 export default {
   name: 'Base',
   components: {
@@ -28,27 +26,9 @@ export default {
     Header
   },
   data() {
-    return {
-      collapseBtnClass: 'el-icon-s-fold',
-      isCollapse: false,
-      sideWidth: 200,
-      logoTextShow: true
-    }
+    return {}
   },
-  methods: {
-    collapse() {
-      this.isCollapse = !this.isCollapse
-      if (this.isCollapse) {
-        this.sideWidth = 64
-        this.collapseBtnClass = 'el-icon-s-unfold'
-        this.logoTextShow = false
-      } else {
-        this.sideWidth = 200
-        this.collapseBtnClass = 'el-icon-s-fold'
-        this.logoTextShow = true
-      }
-    }
-  }
+  methods: {}
 }
 </script>
 
