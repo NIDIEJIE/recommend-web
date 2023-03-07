@@ -1,20 +1,16 @@
 <template>
   <div id="app">
-    <RecommendHome></RecommendHome>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import RecommendHome from "@/views/Manage";
 export default {
-  name: "App",
-  components: {
-    RecommendHome
-  },
+  name: 'App',
+  components: {},
 
   data() {
-    return {
-    }
+    return {}
   }
 }
 </script>

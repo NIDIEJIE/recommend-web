@@ -7,27 +7,30 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/recommend'
-  },
-  {
-    path: '/recommend',
-    name: '',
-    component: () => import('../views/Recommend.vue')
-  },
-  {
-    path: '/history',
-    name: '历史数据',
-    component: () => import('../views/History.vue')
+    component: () => import('../views/Manage.vue'),
+    redirect: '/recommend',
+    children: [
+      {
+        path: 'recommend',
+        name: '',
+        component: () => import('../views/Recommend.vue')
+      },
+      {
+        path: 'history',
+        name: '历史数据',
+        component: () => import('../views/History.vue')
+      },
+      {
+        path: 'center',
+        name: '个人中心',
+        component: () => import('../views/Center.vue')
+      }
+    ]
   },
   {
     path: '/login',
     name: '登录',
     component: () => import('../views/Login.vue')
-  },
-  {
-    path: '/center',
-    name: '个人中心',
-    component: () => import('../views/Center.vue')
   }
 ]
 
