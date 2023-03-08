@@ -17,20 +17,26 @@
         <router-link to="/history">
           <el-dropdown-item>历史数据</el-dropdown-item>
         </router-link>
-
-        <router-link to="/login">
-          <el-dropdown-item>退出登录</el-dropdown-item>
-        </router-link>
+        <el-dropdown-item @click.native="showLogOutDialog()">退出登录</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
+    <el-dialog style="line-height: normal" title="提示" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
+      <span><i class="el-icon-warning" style="color: red"></i> 确定注销并退出系统</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="logOut">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import { mapMutations, mapState } from 'vuex'
+import logOutDialogMix from '../mixins/logOutDialogMix.js'
 
 export default {
   name: 'Header',
+  mixins: [logOutDialogMix],
   props: {},
   data() {
     return {
@@ -52,4 +58,4 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style></style>
