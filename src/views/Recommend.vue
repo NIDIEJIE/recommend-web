@@ -20,8 +20,15 @@
         </el-form-item>
         <!--按钮触发事件-->
         <el-form-item>
-          <el-button type="primary" @click="onSubmit">生成检修方案</el-button>
-          <el-button>取消</el-button>
+          <el-button type="primary" @click="onSubmit" style="width: 100%;">生成检修方案</el-button>
+          <!-- <el-button>取消</el-button> -->
+          <el-dialog title="检修方案推荐" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
+            <span>{{ text }}</span>
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="dialogVisible = false">取消</el-button>
+              <el-button type="primary" @click="dialogVisible = false">导出PDF</el-button>
+            </span>
+          </el-dialog>
         </el-form-item>
       </el-form>
     </div>
@@ -42,11 +49,14 @@
 </template>
 
 <script>
-// import keyParam from "@/assets/data/keyParam";
+import * as keyParam from "@/assets/data/keyParam";
 export default {
   name: 'Recommend',
-  data() {
+  data () {
     return {
+      // 策略推荐输出dialog
+      dialogVisible: false,
+      text: '这是检修方案',
       // 表单数据
       form: {
         name: '',
@@ -61,12 +71,78 @@ export default {
       //计量选择器数据
       value: [],
       //级联选择器选项
-      options: []
+      // TODO 添加剩余参量选项和value（因为value相同会导致多选问题）
+      options: [
+        {
+          value: '',
+          label: keyParam.base[0],
+          children: [{
+            value: '',
+            label: keyParam.base[1]
+          },
+          {
+            value: '',
+            label: keyParam.base[2]
+          },
+          {
+            value: '',
+            label: keyParam.base[3]
+          },
+          {
+            value: '',
+            label: keyParam.base[4]
+          },
+          {
+            value: '',
+            label: keyParam.base[5]
+          },
+          {
+            value: '',
+            label: keyParam.base[6]
+          },
+          {
+            value: '',
+            label: keyParam.base[7]
+          },
+          {
+            value: '',
+            label: keyParam.base[8]
+          }
+          ]
+        },
+        {
+          value: '',
+          label: keyParam.tower[0],
+          children: [{
+            value: '',
+            label: keyParam.tower[1]
+          },
+          {
+            value: '',
+            label: keyParam.tower[2]
+          },
+          {
+            value: '',
+            label: keyParam.tower[3]
+          },
+          {
+            value: '',
+            label: keyParam.tower[4]
+          },
+          {
+            value: '',
+            label: keyParam.tower[5]
+          },
+          ]
+        }
+      ]
     }
   },
   methods: {
-    onSubmit() {
+    // 向后端请求结果
+    onSubmit () {
       console.log('submit!')
+      this.dialogVisible = true
     }
   }
 }
@@ -82,6 +158,7 @@ export default {
     padding-right: 35px;
     border-right: 1px solid #ccc;
   }
+
   .rightContainer {
     height: 100%;
     padding-left: 35px;

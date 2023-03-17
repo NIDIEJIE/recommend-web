@@ -8,7 +8,7 @@
           </div>
           <el-form label-position="left" label-width="100px" :model="form">
             <el-form-item label="用户名">
-              <el-input v-model="form.username" readonly></el-input>
+              <el-input v-model="username" readonly></el-input>
             </el-form-item>
             <el-form-item label="头像">
               <el-avatar class="avatar" :src="form.avatar"></el-avatar>
@@ -28,11 +28,12 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
-  data() {
+  data () {
     return {
       form: {
-        username: '',
+        // username: '',
         avatar: '',
         oldPassword: '',
         newPassword: '',
@@ -41,7 +42,7 @@ export default {
     }
   },
   methods: {
-    uploadAvatar(event) {
+    uploadAvatar (event) {
       const file = event.target.files[0]
       const reader = new FileReader()
       reader.readAsDataURL(file)
@@ -49,13 +50,16 @@ export default {
         this.form.avatar = reader.result
       }
     },
-    changePassword() {
+    changePassword () {
       // 修改密码逻辑
       this.$message({
         message: '密码修改成功！',
         type: 'success'
       })
     }
+  },
+  computed: {
+    ...mapState(['username']),
   }
 }
 </script>

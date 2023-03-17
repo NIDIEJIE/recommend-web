@@ -5,13 +5,15 @@ import menu from './menu'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state() {
+  state () {
     return {
-      currentPathName: ''
+      // 面包屑上的路径名称
+      currentPathName: '',
+      username: '林孟杰'
     }
   },
   mutations: {
-    setPath(state) {
+    setPath (state) {
       state.currentPathName = localStorage.getItem('currentPathName')
     }
   },
