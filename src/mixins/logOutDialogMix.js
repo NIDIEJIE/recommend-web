@@ -1,27 +1,28 @@
 export default {
-  data() {
+  data () {
     return {
       dialogVisible: false
     }
   },
   methods: {
-    showLogOutDialog() {
+    showLogOutDialog () {
       this.dialogVisible = true
     },
-    logOut() {
+    logOut () {
       this.dialogVisible = false
       this.$message({
         message: '退出登录成功！',
         type: 'success'
       })
+      localStorage.removeItem("user")
       this.$router.push('/login')
     },
-    handleClose(done) {
+    handleClose (done) {
       this.$confirm('确认关闭？')
         .then((_) => {
           done()
         })
-        .catch((_) => {})
+        .catch((_) => { })
     }
   }
 }

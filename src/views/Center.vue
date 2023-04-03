@@ -8,7 +8,7 @@
           </div>
           <el-form label-position="left" label-width="100px" :model="form">
             <el-form-item label="用户名">
-              <el-input v-model="username" readonly></el-input>
+              <el-input v-model="user.username" readonly></el-input>
             </el-form-item>
             <el-form-item label="头像">
               <el-avatar class="avatar" :src="form.avatar"></el-avatar>
@@ -38,7 +38,8 @@ export default {
         oldPassword: '',
         newPassword: '',
         confirmPassword: ''
-      }
+      },
+      user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {}
     }
   },
   methods: {

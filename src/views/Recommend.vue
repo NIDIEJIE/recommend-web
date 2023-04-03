@@ -23,7 +23,7 @@
         <el-form-item>
           <el-button type="primary" @click="onSubmit" style="width: 100%;">生成检修方案</el-button>
           <!-- <el-button>取消</el-button> -->
-          <el-dialog title="检修方案推荐" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
+          <el-dialog title="检修方案推荐" :visible.sync="dialogVisible" width="30%">
             <span>{{ text }}</span>
             <span slot="footer" class="dialog-footer">
               <el-button @click="dialogVisible = false">取消</el-button>
@@ -86,22 +86,6 @@ export default {
           {
             value: 'k4-1',
             label: keyParam.base[4]
-          },
-          {
-            value: 'k5-1',
-            label: keyParam.base[5]
-          },
-          {
-            value: 'k6-1',
-            label: keyParam.base[6]
-          },
-          {
-            value: 'k7-1',
-            label: keyParam.base[7]
-          },
-          {
-            value: 'k8-1',
-            label: keyParam.base[8]
           }
           ]
         },
@@ -128,6 +112,22 @@ export default {
           {
             value: '',
             label: keyParam.tower[5]
+          },
+          {
+            value: '',
+            label: keyParam.tower[6]
+          },
+          {
+            value: '',
+            label: keyParam.tower[7]
+          },
+          {
+            value: '',
+            label: keyParam.tower[8]
+          },
+          {
+            value: '',
+            label: keyParam.tower[9]
           },
           ]
         },
@@ -263,6 +263,14 @@ export default {
             value: '',
             label: keyParam.channelEnvironment[1]
           },
+          {
+            value: '',
+            label: keyParam.channelEnvironment[2]
+          },
+          {
+            value: '',
+            label: keyParam.channelEnvironment[3]
+          },
           ]
         },
         // 附属设施
@@ -280,15 +288,7 @@ export default {
           {
             value: '',
             label: keyParam.ancillaryFacilities[3]
-          },
-          {
-            value: '',
-            label: keyParam.ancillaryFacilities[4]
-          },
-          {
-            value: '',
-            label: keyParam.ancillaryFacilities[5]
-          },
+          }
           ]
         },
       ]
@@ -299,6 +299,13 @@ export default {
     onSubmit () {
       console.log('submit!')
       this.dialogVisible = true
+      axios.get('/test').then((res) => {
+        // 先请求到结果，保存策略到策略表
+        // 策略保存后得到刚保存的策略id，在存到历史记录表中
+        // 再刷新历史记录表
+        console.log('777');
+        this.text = res.data
+      })
     }
   }
 }

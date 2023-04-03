@@ -8,7 +8,7 @@
       </el-breadcrumb>
     </div>
     <el-dropdown style="width: 70px; cursor: pointer">
-      <span>{{ username }}<i class="el-icon-arrow-down" style="margin-left: 5px"></i></span>
+      <span>{{ user.username }}<i class="el-icon-arrow-down" style="margin-left: 5px"></i></span>
 
       <el-dropdown-menu slot="dropdown">
         <router-link to="/center">
@@ -41,7 +41,7 @@ export default {
   props: {},
   data () {
     return {
-      // username: '林孟杰'
+      user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {}
     }
   },
   methods: {
