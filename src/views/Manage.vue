@@ -6,11 +6,11 @@
     <el-container>
       <!-- 头部-->
       <el-header>
-        <Header></Header>
+        <Header :user="user"></Header>
       </el-header>
       <!--主体内容-->
       <el-main>
-        <router-view></router-view>
+        <router-view @refreshUser="getUser"></router-view>
       </el-main>
     </el-container>
   </el-container>
@@ -25,10 +25,28 @@ export default {
     Aside,
     Header
   },
-  data() {
-    return {}
+  data () {
+    return {
+      user: {}
+    }
   },
-  methods: {}
+  created () {
+    // 从后台获取最新的User数据
+    this.getUser()
+  },
+  methods: {
+    getUser () {
+      let id = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).id : ""
+      if (id) {
+        // 从后台获取User数据
+        this.request.get("/user/" + id).then(res => {
+          // 重新赋值后台的最新User数据
+          console.log(res.data);
+          this.user = res.data
+        })
+      }
+    }
+  }
 }
 </script>
 
@@ -39,6 +57,7 @@ export default {
   // margin: 20px;
   // border: 1px solid #ccc;
 }
+
 .el-header {
   border-bottom: 1px solid #ccc;
   color: #333;

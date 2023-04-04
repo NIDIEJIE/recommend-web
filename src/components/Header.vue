@@ -7,9 +7,11 @@
         <el-breadcrumb-item>{{ currentPathName }}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <el-dropdown style="width: 70px; cursor: pointer">
-      <span>{{ user.username }}<i class="el-icon-arrow-down" style="margin-left: 5px"></i></span>
-
+    <el-dropdown style="width: 110px; cursor: pointer">
+      <div style="display: flex; align-items: center;">
+        <img :src="user.avatarurl" alt="" style="width: 40px; border-radius: 50%; position: relative; right: 5px">
+        <span>{{ user.username }}<i class="el-icon-arrow-down" style="margin-left: 5px"></i></span>
+      </div>
       <el-dropdown-menu slot="dropdown">
         <router-link to="/center">
           <el-dropdown-item>个人中心</el-dropdown-item>
@@ -38,10 +40,12 @@ import logOutDialogMix from '../mixins/logOutDialogMix.js'
 export default {
   name: 'Header',
   mixins: [logOutDialogMix],
-  props: {},
+  props: {
+    user: Object
+  },
   data () {
     return {
-      user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {}
+      // user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {}
     }
   },
   methods: {
@@ -52,7 +56,6 @@ export default {
   },
   computed: {
     ...mapState('menu', ['collapseBtnClass']),
-    ...mapState(['username']),
     currentPathName () {
       return this.$store.state.currentPathName //需要监听的数据
     }
