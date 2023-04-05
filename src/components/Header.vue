@@ -16,9 +16,6 @@
         <router-link to="/center">
           <el-dropdown-item>个人中心</el-dropdown-item>
         </router-link>
-        <router-link to="/history">
-          <el-dropdown-item>历史数据</el-dropdown-item>
-        </router-link>
         <el-dropdown-item @click.native="showLogOutDialog()">退出登录</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>

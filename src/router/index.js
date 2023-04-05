@@ -24,6 +24,11 @@ const routes = [
         path: 'center',
         name: '个人中心',
         component: () => import('../views/Center.vue')
+      },
+      {
+        path: 'analysis',
+        name: '数据分析',
+        component: () => import('../views/Analysis.vue')
       }
     ]
   },
