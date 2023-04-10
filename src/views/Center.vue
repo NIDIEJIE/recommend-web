@@ -102,6 +102,7 @@ export default {
       this.request.post('/user', user).then(res => {
         // 请求是异步操作所以需要进行限制，否则会读脏数据
         this.$emit('refreshUser')
+        this.$message.success("修改头像成功")
       })
 
     }
