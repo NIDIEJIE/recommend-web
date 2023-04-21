@@ -308,7 +308,8 @@ export default {
           }
           ]
         },
-      ]
+      ],
+      user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
     }
   },
   methods: {
@@ -332,6 +333,7 @@ export default {
       }, []);
       // 封装发送给后端服务器的数据
       let requestData = {
+        user_id: this.user.id,
         transmissionLineName: this.form.transmissionLineName,
         towerData: groupedData
       }

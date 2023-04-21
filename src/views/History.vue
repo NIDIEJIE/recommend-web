@@ -54,6 +54,7 @@ export default {
       dialogVisible: false,
       dialogVisibleCheck: false,
       text: '这是检修方案',
+      user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
     }
   },
   created () {
@@ -68,6 +69,7 @@ export default {
     confirmDelete (rowData) {
       this.dialogVisible = true
       this.itemId = rowData.id
+      console.log(this.itemId);
     },
     // 删除数据
     deleteItem () {
@@ -85,7 +87,7 @@ export default {
     },
     // 加载数据
     load () {
-      request.get("/history/page?pageNum=" + this.pageNum + "&pageSize=" + this.pageSize).then((res) => {
+      request.get("/history/page?pageNum=" + this.pageNum + "&pageSize=" + this.pageSize + "&id=" + this.user.id).then((res) => {
         this.tableData = res.data
         this.total = res.total
       })

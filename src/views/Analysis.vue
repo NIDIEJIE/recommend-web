@@ -53,7 +53,8 @@ export default {
   name: "analysis",
   data () {
     return {
-      chartData: []
+      chartData: [],
+      user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
     }
   },
   mounted () {  // 页面元素渲染之后再触发
@@ -63,7 +64,7 @@ export default {
     var pieDom = document.getElementById('pie');
     var pieChart = echarts.init(pieDom);
 
-    this.request.get("/chart").then(res => {
+    this.request.get("/chart?id=" + this.user.id).then(res => {
       // 填空
       this.chartData = res.data
       // 数据准备完毕之后再set
