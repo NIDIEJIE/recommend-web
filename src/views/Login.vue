@@ -13,7 +13,6 @@
         </el-form-item>
         <el-form-item style="margin: 10px 0; text-align: right">
           <el-button type="primary" style="width: 100%" size="big" autocomplete="off" @click="login">登录</el-button>
-          <!-- <el-button type="warning" size="small" autocomplete="off">注册</el-button> -->
         </el-form-item>
       </el-form>
     </div>

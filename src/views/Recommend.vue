@@ -31,11 +31,11 @@
         <el-form-item>
           <el-button type="primary" @click="onSubmit" style="width: 100%;">生成检修方案</el-button>
           <!-- <el-button>取消</el-button> -->
-          <el-dialog title="检修方案推荐" :visible.sync="dialogVisible" width="50%">
-            <span>{{ text }}</span>
+          <el-dialog title="检修方案推荐" ref="dialog" :visible.sync="dialogVisible" width="50%">
+            <div v-html="text" ref="content"></div>
             <span slot="footer" class="dialog-footer">
               <el-button @click="dialogVisible = false">取消</el-button>
-              <el-button type="primary" @click="dialogVisible = false">导出PDF</el-button>
+              <el-button type="primary" @click="downloadPDF()">导出PDF</el-button>
             </span>
           </el-dialog>
         </el-form-item>
@@ -334,13 +334,14 @@ export default {
         towerData: groupedData
       }
       this.request.post('/strategy', requestData).then((res) => {
-        console.log(requestData);
+        // console.log(requestData);
         // 先请求到结果，保存策略到策略表
         // 策略保存后得到刚保存的策略id，在存到历史记录表中
         // 再刷新历史记录表
         if (res.code === "200") {
           this.dialogVisible = true
-          this.text = res.data
+          this.text = res.data.replace(/\n/g, "<br>");
+          console.log(res);
         } else {
           this.$message.error(res.msg)
         }
@@ -374,7 +375,10 @@ export default {
     // 删除选中的参量行
     confirmDelete (rownum) {
       this.tableData.splice(rownum, 1)
-    }
+    },
+    //导出为pdf
+    downloadPDF () {
+    },
   },
   watch: {
     // 当重新选择杆塔时清空级联选择器的已选择内容
