@@ -31,7 +31,7 @@
         <el-form-item>
           <el-button type="primary" @click="onSubmit" style="width: 100%;">生成检修方案</el-button>
           <!-- <el-button>取消</el-button> -->
-          <el-dialog title="检修方案推荐" ref="dialog" :visible.sync="dialogVisible" width="50%">
+          <el-dialog title="检修方案推荐" ref="dialog" :visible.sync="dialogVisible" width="40%">
             <div v-html="text" ref="content"></div>
             <span slot="footer" class="dialog-footer">
               <el-button @click="dialogVisible = false">取消</el-button>
@@ -67,6 +67,8 @@
 
 <script>
 import * as keyParam from "@/assets/data/keyParam";
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 export default {
   name: 'Recommend',
   data () {
@@ -377,7 +379,26 @@ export default {
       this.tableData.splice(rownum, 1)
     },
     //导出为pdf
-    downloadPDF () {
+    async downloadPDF () {
+      console.log(1);
+      const dialog = this.$refs.content; // 获取Dialog元素
+      const canvas = await html2canvas(dialog); // 将Dialog渲染为Canvas
+      const imgData = canvas.toDataURL('image/png'); // 将Canvas转换为图像数据
+
+      const pdf = new jsPDF({
+        orientation: 'p', // 纵向
+        unit: 'mm',
+        format: 'a4',
+      });
+
+      pdf.addImage(imgData, 'PNG', 10, 10); // 添加图像到PDF中
+      const now = new Date(); // 创建一个新的Date对象
+      const year = now.getFullYear(); // 获取当前年份
+      const month = now.getMonth(); // 获取当前月份
+      const date = now.getDate(); // 获取当前日期
+      const hours = now.getHours(); // 获取当前小时数
+      const minutes = now.getMinutes(); // 获取当前分钟数
+      pdf.save(this.form.transmissionLineName + '_' + year + '-' + month + '-' + date + '-' + hours + '-' + minutes + '-' + '.pdf'); // 下载PDF文件
     },
   },
   watch: {
