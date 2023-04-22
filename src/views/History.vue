@@ -5,7 +5,7 @@
       <el-table-column prop="linename" label="线路"> </el-table-column>
       <el-table-column label="操作" width="210" align="center">
         <template slot-scope="scope">
-          <el-button type="success" @click="check()">查看 <i class="el-icon-search"></i></el-button>
+          <el-button type="success" @click="check(scope.row)">查看 <i class="el-icon-search"></i></el-button>
 
           <el-button type="danger" @click="confirmDelete(scope.row)">删除 <i class="el-icon-remove-outline"></i></el-button>
 
@@ -17,11 +17,11 @@
         :page-sizes="[5, 6, 7, 8]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
     </div>
-    <el-dialog title="检修方案推荐" :visible.sync="dialogVisibleCheck" width="30%" :before-close="handleClose">
-      <span>{{ text }}</span>
+    <el-dialog title="检修方案推荐" ref="dialog" :visible.sync="dialogVisibleCheck" width="40%">
+      <div v-html="text" ref="content"></div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisibleCheck = false">取消</el-button>
-        <el-button type="primary" @click="dialogVisibleCheck = false">导出PDF</el-button>
+        <el-button type="primary" @click="downloadPDF()">导出PDF</el-button>
       </span>
     </el-dialog>
     <el-dialog title="提示" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
@@ -36,6 +36,8 @@
 
 <script>
 import request from '@/utils/request'
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 export default {
   name: 'History',
   data () {
@@ -55,6 +57,8 @@ export default {
       dialogVisibleCheck: false,
       text: '这是检修方案',
       user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
+      transmissionLineName: '',
+      date: ''
     }
   },
   created () {
@@ -62,8 +66,15 @@ export default {
     this.load()
   },
   methods: {
-    check () {
+    check (rowData) {
       this.dialogVisibleCheck = true
+      this.itemId = rowData.id
+      this.transmissionLineName = rowData.linename
+      this.date = rowData.date
+      request.get("/history/" + this.itemId).then((res) => {
+        this.text = res.data;
+        console.log(res);
+      })
     },
     // 删除历史记录的提示框
     confirmDelete (rowData) {
@@ -99,7 +110,23 @@ export default {
     handleCurrentChange (pageNum) {
       this.pageNum = pageNum;
       this.load()
-    }
+    },
+    //导出为pdf
+    async downloadPDF () {
+      console.log(1);
+      const dialog = this.$refs.content; // 获取Dialog元素
+      const canvas = await html2canvas(dialog); // 将Dialog渲染为Canvas
+      const imgData = canvas.toDataURL('image/png'); // 将Canvas转换为图像数据
+
+      const pdf = new jsPDF({
+        orientation: 'p', // 纵向
+        unit: 'mm',
+        format: 'a4',
+      });
+
+      pdf.addImage(imgData, 'PNG', 10, 10); // 添加图像到PDF中
+      pdf.save(this.transmissionLineName + '_' + this.date + '.pdf'); // 下载PDF文件
+    },
   },
   watch: {
   }
