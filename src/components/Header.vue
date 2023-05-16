@@ -13,7 +13,7 @@
         <span>{{ user.username }}<i class="el-icon-arrow-down" style="margin-left: 5px"></i></span>
       </div>
       <el-dropdown-menu slot="dropdown">
-        <router-link to="/center">
+        <router-link to="/manage/center">
           <el-dropdown-item>个人中心</el-dropdown-item>
         </router-link>
         <el-dropdown-item @click.native="showLogOutDialog()">退出登录</el-dropdown-item>

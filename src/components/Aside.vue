@@ -8,19 +8,19 @@
           <b style="color: white" v-show="logoTextShow">检修策略推荐系统</b>
         </div>
       </div>
-      <el-menu-item index="/">
+      <el-menu-item index="/manage/recommend">
         <i class="el-icon-house"></i>
         <span slot="title">首页</span>
       </el-menu-item>
-      <el-menu-item index="/history">
+      <el-menu-item index="/manage/history">
         <i class="el-icon-coin"></i>
         <span slot="title">历史数据</span>
       </el-menu-item>
-      <el-menu-item index="/analysis">
+      <el-menu-item index="/manage/analysis">
         <i class="el-icon-data-line"></i>
         <span slot="title">数据分析</span>
       </el-menu-item>
-      <el-menu-item index="/center">
+      <el-menu-item index="/manage/center">
         <i class="el-icon-user"></i>
         <span slot="title">个人中心</span>
       </el-menu-item>
