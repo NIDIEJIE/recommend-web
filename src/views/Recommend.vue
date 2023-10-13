@@ -71,7 +71,7 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 export default {
   name: 'Recommend',
-  data () {
+  data() {
     // const item = {
     //   tower: '',
     //   param: '',
@@ -314,7 +314,7 @@ export default {
   },
   methods: {
     // 向后端请求结果
-    onSubmit () {
+    onSubmit() {
       console.log('submit!')
       if (this.tableData.length === 0) {
         this.$message.error('无参量输入')
@@ -352,7 +352,7 @@ export default {
       })
     },
     // 将级联选择器选择的参量行显示到右侧table中
-    handleChange (res) {
+    handleChange(res) {
       console.log(res);
       for (let i of res) {
         let parami = i[0] + ' / ' + i[1];
@@ -377,11 +377,11 @@ export default {
       }
     },
     // 删除选中的参量行
-    confirmDelete (rownum) {
+    confirmDelete(rownum) {
       this.tableData.splice(rownum, 1)
     },
     //导出为pdf
-    async downloadPDF () {
+    async downloadPDF() {
       console.log(1);
       const dialog = this.$refs.content; // 获取Dialog元素
       const canvas = await html2canvas(dialog); // 将Dialog渲染为Canvas
@@ -406,10 +406,16 @@ export default {
   watch: {
     // 当重新选择杆塔时清空级联选择器的已选择内容
     'form.tower': {
-      handler () {
+      handler() {
         this.value = []
       }
-    }
+    },
+    'form.transmissionLineName': {
+      handler() {
+        this.value = []
+        this.tableData = []
+      }
+    },
   }
 }
 </script>
